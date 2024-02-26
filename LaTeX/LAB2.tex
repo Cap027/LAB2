@@ -9,8 +9,13 @@
 	\setlength{\itemsep}{\bibparskip}%
 }
 
-\usepackage{tikz}
+\newcommand{\rectangle}[2]{{% #1 = width, #2 = height
+		\fboxsep=-\fboxrule\sbox0{}\wd0=#1\ht0=#2\relax\fbox{\box0}}}
 
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{enumitem}
 
 \begin{document}
 	
@@ -76,8 +81,9 @@
 	\end{tabular}
 \end{table}
 
+\subsection{Минимизация}
 Произведем минимизацию функций методом диаграмм Вейча; на рис.~\ref{fig: diagram_sample} представлена эталонная диаграмма, которой далее будем пользоваться.
-\begin{figure}
+\begin{figure}[h]
 	\centering
 \begin{tikzpicture}
 	\draw (0,0) grid (4,4);
@@ -193,15 +199,340 @@
 \end{figure}
 
 Произведя минимизацию при помощи диаграмм Вейча (рис.~\ref{fig:Veitch_all}), запишем заданные функции в форме МДНФ:
-\begin{equation}
+\begin{equation} \label{eq:sys}
 	\left\{
-	\begin{aligned}
+	\begin{aligned} 
 		F_1(x_3, x_2, x_1, x_0) &= x_0\bar x_3 \vee \bar x_0 x_3,\\
 		F_2(x_3, x_2, x_1, x_0) &= x_0\bar x_3 \vee x_0 x_1 x_2 \vee x_0\bar x_1 \bar x_2 \vee x_1\bar x_2\bar x_3,\\
 		F_3(x_3, x_2, x_1, x_0) &= x_0\bar x_3 \vee \bar x_1\bar x_2 x_3.
 	\end{aligned}
 	\right.
 \end{equation}
+
+\begin{landscape}
+	\begin{table}[]
+		\caption{Импликантная матрица системы логических функций} \label{tab:matrix}
+		\centering
+		\footnotesize
+		\begin{tabular}{|c|ccccccccccccccccccccc|}
+			\hline
+			\multirow{4}{*}{\makecell{Импли-\\канта}} &
+			\multicolumn{21}{c|}{Конституента} \\ \cline{2-22} 
+			&
+			\multicolumn{3}{c|}{1} &
+			\multicolumn{1}{c|}{2} &
+			\multicolumn{3}{c|}{3} &
+			\multicolumn{3}{c|}{5} &
+			\multicolumn{3}{c|}{7} &
+			\multicolumn{2}{c|}{8} &
+			\multicolumn{2}{c|}{9} &
+			\multicolumn{1}{c|}{10} &
+			\multicolumn{1}{c|}{12} &
+			\multicolumn{1}{c|}{14} &
+			15 \\ \cline{2-22} &
+			\multicolumn{3}{c|}{$\bar x_3 \bar x_2 \bar x_1 x_0$} &
+			\multicolumn{1}{c|}{$\bar x_3 \bar x_2 \bar x_1 \bar x_0$} &
+			\multicolumn{3}{c|}{$\bar x_3 \bar x_2 x_1 x_0$} &
+			\multicolumn{3}{c|}{$\bar x_3 x_2 \bar x_1 x_0$} &
+			\multicolumn{3}{c|}{$\bar x_3 x_2 x_1 x_0$} &
+			\multicolumn{2}{c|}{$x_3 \bar x_2 \bar x_1 \bar x_0$} &
+			\multicolumn{2}{c|}{$x_3 \bar x_2 \bar x_1 x_0$} &
+			\multicolumn{1}{c|}{$x_3 \bar x_2 x_1 \bar x_0$} &
+			\multicolumn{1}{c|}{$x_3 x_2 \bar x_1 \bar x_0$} &
+			\multicolumn{1}{c|}{$x_3 x_2 x_1 \bar x_0$} &
+			$x_3 x_2 x_1 x_0$ \\ \cline{2-22} 
+			&
+			\multicolumn{1}{c|}{$F_1$} &
+			\multicolumn{1}{c|}{$F_2$} &
+			\multicolumn{1}{c|}{$F_3$} &
+			\multicolumn{1}{c|}{$F_2$} &
+			\multicolumn{1}{c|}{$F_1$} &
+			\multicolumn{1}{c|}{$F_2$} &
+			\multicolumn{1}{c|}{$F_3$} &
+			\multicolumn{1}{c|}{$F_1$} &
+			\multicolumn{1}{c|}{$F_2$} &
+			\multicolumn{1}{c|}{$F_3$} &
+			\multicolumn{1}{c|}{$F_1$} &
+			\multicolumn{1}{c|}{$F_2$} &
+			\multicolumn{1}{c|}{$F_3$} &
+			\multicolumn{1}{c|}{$F_1$} &
+			\multicolumn{1}{c|}{$F_3$} &
+			\multicolumn{1}{c|}{$F_2$} &
+			\multicolumn{1}{c|}{$F_3$} &
+			\multicolumn{1}{c|}{$F_1$} &
+			\multicolumn{1}{c|}{$F_1$} &
+			\multicolumn{1}{c|}{$F_1$} &
+			$F_2$ \\ \hline
+			\makecell{$\bar x_3 x_0$\\$F_1 F_2 F_3$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			\makecell{$x_3 \bar x_0$\\$F_1$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			\makecell{$x_2 x_1 x_0$\\$F_2$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			\makecell{$\bar x_2 \bar x_1 x_0$\\$F_2$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			\makecell{$\bar x_3 \bar x_2 x_1$\\$F_2$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			\makecell{$x_3 \bar x_2 \bar x_1$\\$F_3$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			\makecell{$x_3 \bar x_2 \bar x_1 \bar x_0$\\$F_1 F_2$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			\makecell{$x_3 \bar x_2 \bar x_1 x_0$\\$F_2 F_3$} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+			&
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\multicolumn{1}{c|}{} &
+			\\ \hline
+		\end{tabular}
+	\end{table}
+\end{landscape}
+
+
+Найдем все простые импликанты системы логических функций \eqref{eq: FAL}, включая и функции $F_1\cdot F_2, F_1 \cdot F_3, F_2\cdot F_3, F_1 \cdot F_2, \cdot F_3$. Из диаграмм (рис.~\ref{fig:Veitch_all}) нетрудно видеть, что:
+\begin{equation} \label{eq:sysFiFj}
+	\left\{
+	\begin{aligned}
+		F_1\cdot F_2 &= x_0 \bar x_3,\\
+		F_1\cdot F_3 &= x_0 \bar x_3 \vee \bar x_0 \bar x_1 \bar x_2 x_3,\\
+		F_2\cdot F_3 &= x_0 \bar x_3 \vee x_0 \bar x_1 \bar x_2 x_3,\\
+		F_1 \cdot F_2 \cdot F_3 &= x_0 \bar x_3.
+	\end{aligned}
+	\right.
+\end{equation}
+
+
+
+Теперь при помощи импликантной матрицы системы функций (табл.~\ref{tab:matrix}) определим минимальное представление системы логических функций \eqref{eq:sys}--\eqref{eq:sysFiFj}. Анализ заполненной матрицы показывает, что минимальная совокупность переключательных функций останется в виде \eqref{eq:sys}.
+
+\subsection{Комбинационная схема, временная диаграмма}
+
+Перейдем в базис штриха Шеффера:
+\begin{equation} \label{eq:sysNand}
+	\left\{
+	\begin{aligned}
+		F_1(x_3, x_2, x_1, x_0) &= (x_0 | \bar x_3) | (\bar x_0 | x_3),\\
+		F_2(x_3, x_2, x_1, x_0) &= (x_0 | \bar x_3) |(x_0 | x_1 | x_2) | (x_0 | \bar x_1 | \bar x_2) | (x_1 | \bar x_2 | \bar x_3),\\
+		F_3(x_3, x_2, x_1, x_0) &= (x_0 | \bar x_3) | (\bar x_1 | \bar x_2 | x_3).
+	\end{aligned}
+	\right.
+\end{equation}
+В соответствии с \eqref{eq:sysNand} построим логическую схему (рис.~\ref{fig:circuit}).
+\begin{figure}[h!]
+	%\centering\includegraphics[draft, width=15cm, height=19.5cm]{circuit}
+	\centering\rectangle{15cm}{19.5cm}
+	\caption{Реализация многовыходной комбинационной схемы} \label{fig:circuit}
+\end{figure}
+
+Произведем ранжирование элементов схемы (рис.~\ref{fig:circuit}):
+\begin{center}
+\begin{tabular}{ll}
+	%\hline
+	0-й ранг: & $x_3, x_2, x_1, x_0$ \\
+	%\hline
+	1-й ранг: & $\bar x_3, \bar x_2, \bar x_1, \bar x_0, D_3$ \\
+	%\hline
+	2-й ранг: & $D_1, D_2, D_4, D_5, D_6$ \\
+	%\hline
+	3-й ранг: & $F_1, F_2, F_3$ \\
+	%\hline
+\end{tabular}
+\end{center}
+В соответствии с рангами построим временную диаграмму (рис.~\ref{fig:timeDiagram}).
+
+Оценим максимальные задержки переключения сигналов для каждой из функций.
+\begin{itemize}[noitemsep,topsep=0pt]
+	\item Функция $F_1$:
+	Вычисления производились на 10-м наборе. Схема прохождения сигнала: $x_0 \rightarrow \bar x_0 \rightarrow D_2 \rightarrow F_1$. Максимальные величины задержек переключения: $t_{01} = 8~нс$, $t_{10} = 7~нс$. 
+	
+	\item Функция $F_2$:
+	Вычисления производились на 5-м наборе. Схема прохождения сигнала: $x_0  \rightarrow D_1 \rightarrow F_2$. Максимальные величины задержек переключения: $t_{01} = 6~нс$, $t_{10} = 5~нс$.
+	
+	\item Функция $F_2$:
+	Вычисления производились на 8-м и 9-м наборах. Схемы прохождения сигнала: $x_2 \rightarrow \bar x_2 \rightarrow D_6 \rightarrow F_3$, $x_1 \rightarrow \bar x_1 \rightarrow D_6 \rightarrow F_3$. Максимальные величины задержек переключения: $t_{01} = 8~нс$, $t_{10} = 7~нс$.
+\end{itemize}
+
+\begin{figure}
+	\rectangle{17cm}{22.5cm}
+	\caption{Временная диаграмма работы комбинационной схемы}
+\end{figure}
 
 \section{Описание комбинационной схемы на VHDL}
 
