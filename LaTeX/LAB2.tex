@@ -16,6 +16,7 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage{listings}
 
 \begin{document}
 	
@@ -464,9 +465,10 @@
 		\end{tabular}
 	\end{table}
 \end{landscape}
+\normalsize
 
 
-Найдем все простые импликанты системы логических функций \eqref{eq: FAL}, включая и функции $F_1\cdot F_2, F_1 \cdot F_3, F_2\cdot F_3, F_1 \cdot F_2, \cdot F_3$. Из диаграмм (рис.~\ref{fig:Veitch_all}) нетрудно видеть, что:
+Найдем все простые импликанты системы логических функций \eqref{eq: FAL}, включая и функции $F_1\cdot F_2, F_1 \cdot F_3, F_2\cdot F_3, F_1 \cdot F_2 \cdot F_3$. Из диаграмм (рис.~\ref{fig:Veitch_all}) нетрудно видеть, что:
 \begin{equation} \label{eq:sysFiFj}
 	\left\{
 	\begin{aligned}
@@ -531,9 +533,31 @@
 
 \begin{figure}
 	\rectangle{17cm}{22.5cm}
-	\caption{Временная диаграмма работы комбинационной схемы}
+	\caption{Временная диаграмма работы комбинационной схемы} \label{fig:timeDiagram}
 \end{figure}
 
 \section{Описание комбинационной схемы на VHDL}
+
+Описать комбинационную схему на языке VHDL можно различными способами. Воспользуемся одним из предложенных в лабораторном практикуме, а именно "--- с использованием \emph{параллельного сигнального оператора присваивания}, при этом функции будем описывать в виде \emph{булевых уравнений} (листинг~\ref{list:prog}). Удобнее всего при этом воспользоваться ранее полученным представлением функций в форме МДНФ \eqref{eq:sys}.
+
+\begin{lstlisting}[language=VHDL, caption={Описание комбинационной схемы на языке VHDL}\label{list:prog}]
+	entity LAB2_KS is
+		port (
+			 x3, x2, x1, x0: in BIT;
+			 F1, F1, F3: out BIT
+			 );
+	end LAB2_KS;
+	
+	architecture LAB2_KS_arch of LAB2_KS is
+	begin
+		F1 <= (not x3 and x0) or (x3 and not x0);
+		F2 <= (not x3 and x0)
+			  or (x2 and x1 and x0)
+			  or (not x2 and not x1 and x0)
+			  or (not x3 and not x2 and x1);
+		F3 <= (not x3 and x0)
+			  or (x3 and not x2 and not x1);
+	end LAB2_KS_arch;
+\end{lstlisting}
 
 \end{document}
